@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Home() {
+function Component() {
   return (
     <>
       <h1>Welcome Home</h1>
@@ -8,4 +8,4 @@ function Home() {
   )
 }
 
-export default Home
+export default Component

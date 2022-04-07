@@ -1,26 +1,32 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React, { Suspense } from 'react';
+import { createRoot } from 'react-dom/client'
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Home from './pages/Home';
-import History from './pages/History';
-import About from './pages/About';
+import Home from './pages/Home'
+import Loading from './components/Loading'
 
-ReactDOM.render(
+const Upload = React.lazy(() => import('./pages/Upload'))
+const History = React.lazy(() => import('./pages/History'))
+const About = React.lazy(() => import('./pages/About'))
+
+let root = createRoot(document.getElementById('root'))
+root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App />} >
-          <Route path="/" element={<Home />} />
-          <Route path="history" element={<History />} />
-          <Route path="about" element={<About />} />
-        </Route>
-      </Routes>
+      <Suspense fallback={<Loading />}>
+        <Routes>
+          <Route path="/" element={<App />} >
+            <Route path="/" element={<Home />} />
+            <Route path="upload" element={<Upload />} />
+            <Route path="history" element={<History />} />
+            <Route path="about" element={<About />} />
+          </Route>
+        </Routes>
+      </Suspense>
     </BrowserRouter>
-  </React.StrictMode>,
-  document.getElementById('root')
+  </React.StrictMode>
 )
 
 // If you want to start measuring performance in your app, pass a function
