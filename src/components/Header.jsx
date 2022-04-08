@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import logo from "../logo.svg";
 import styled from "styled-components";
@@ -22,7 +22,8 @@ const TheNavLink = styled(NavLink)`
     border-bottom: 2px solid;
   }
 `;
-function Component() {
+
+function Component(props) {
   return (
     <Wrapper>
       <Link to="/">
@@ -53,6 +54,7 @@ function Component() {
         >
           关于
         </TheNavLink>
+        <button onClick={()=>props.toggle()}>切换主题</button>
       </nav>
     </Wrapper>
   );

@@ -1,10 +1,9 @@
-import React, { useState, createContext } from "react";
-import Header from "./components/Header";
+import React, { useState, useContext, useEffect } from "react";
+import Header, { ThemeModeContext } from "./components/Header";
 import Footer from "./components/Footer";
 import { Outlet } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
-import { light, dark } from "./theme";
-import { GlobalStyles } from "./global";
+import { light, dark, GlobalStyles } from "./theme";
 
 function App() {
   const [theme, setTheme] = useState("light");
@@ -16,15 +15,12 @@ function App() {
     }
   };
   return (
-    // <ModeContext.Provider value={theme}>
     <ThemeProvider theme={theme === "light" ? light : dark}>
       <GlobalStyles />
-      <Header />
-      <button onClick={toggleTheme}>切换主题</button>
+      <Header toggle={toggleTheme} />
       <Outlet />
       <Footer />
     </ThemeProvider>
-    // </ModeContext.Provider>
   );
 }
 
