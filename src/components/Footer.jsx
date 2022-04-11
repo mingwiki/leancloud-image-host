@@ -1,17 +1,21 @@
 import React from "react";
-import styled from "styled-components";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
 
 const Wrapper = styled.footer`
-  box-shadow: inherit;
-  border-radius: 8px 8px 0 0;
+  border-radius: 2rem 2rem 0 0;
   text-align: center;
-  padding: 10px 0;
+  padding: 0.2rem 0;
+  position: fixed;
+  bottom: 0;
+  left: 5vw;
+  right: 5vw;
 `;
 const TheLink = styled(Link)`
   color: inherit;
   text-decoration: none;
 `;
+
 function Component() {
   return (
     <Wrapper>

@@ -15,14 +15,6 @@ code {
 #root {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  height: 100vh;
   background-color: rgb(187, 183, 183);
-}
-
-main {
-  flex: 1;
-  margin: 20px;
-  border-radius: 8px;
-  box-shadow: inherit;
 }

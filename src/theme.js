@@ -3,18 +3,33 @@ import { createGlobalStyle } from 'styled-components'
 export const light = {
   body: 'white',
   text: 'black',
+  boxshadow: 'rgba(0, 0, 0, 0.5) 0px 0px 8px 4px',
 }
 
 export const dark = {
   body: 'black',
   text: 'white',
+  boxshadow: 'rgba(255, 255, 255, 0.8) 0px 0px 8px 4px',
 }
 
 export const GlobalStyles = createGlobalStyle`
+  main {
+    flex: 1;
+    margin: 5rem 10vw;
+    border-radius: 1rem;
+    box-shadow: inherit;
+  } 
   header, main, footer { 
     background-color: ${({ theme }) => theme.body};
     color: ${({ theme }) => theme.text};
+    box-shadow: ${({ theme }) => theme.boxshadow};
     transition: all 0.25s linear;
+  }
+  header{
+    font-size: 1.5rem;
+  }
+  a{
+    padding: 0;
   }
 `
 
