@@ -1,6 +1,5 @@
-// import { makeAutoObservable } from "mobx"
-import { computed } from "mobx";
-import { makeObservable, observable, action } from "mobx";
+import { makeAutoObservable } from "mobx";
+// import { makeObservable, observable, computed, action } from "mobx";
 
 class AuthStore {
   isLogin = false;
@@ -10,16 +9,17 @@ class AuthStore {
     password: "",
   };
   constructor() {
-    makeObservable(this, {
-      isLogin: observable,
-      isLoding: observable,
-      values: observable,
-      username: computed,
-      password: computed,
-      login: action,
-      register: action,
-      logout: action,
-    });
+    // makeObservable(this, {
+    //   isLogin: observable,
+    //   isLoding: observable,
+    //   values: observable,
+    //   username: computed,
+    //   password: computed,
+    //   login: action,
+    //   register: action,
+    //   logout: action,
+    // });
+    makeAutoObservable(this);
   }
   get username() {
     return this.values.username;
