@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../logo.svg";
 import logo2 from "../logo2.svg";
+import { Button } from "antd";
 
 const Wrapper = styled.header`
   display: flex;
@@ -34,10 +35,11 @@ const Toggle = styled.img`
   margin-left: auto;
   margin-right: 10vw;
 `;
-const Button = styled.button`
+const StyledButton = styled(Button)`
   margin-left: 2em;
 `;
 function Component(props) {
+  const [isLogin, login] = useState(false);
   return (
     <Wrapper>
       <Logo
@@ -51,12 +53,23 @@ function Component(props) {
         <TheNavLink to="history">历史</TheNavLink>
         <TheNavLink to="about">关于</TheNavLink>
       </nav>
-      <Button>
-        <Link to="login">登录</Link>
-      </Button>
-      <Button>
-        <Link to="register">注册</Link>
-      </Button>
+      {isLogin ? (
+        <>
+          fuming
+          <StyledButton type="dashed" onClick={() => login(false)}>
+            <Link to="logout">注销</Link>
+          </StyledButton>
+        </>
+      ) : (
+        <>
+          <StyledButton type="dashed" onClick={() => login(true)}>
+            <Link to="login">登录</Link>
+          </StyledButton>
+          <StyledButton type="dashed">
+            <Link to="register">注册</Link>
+          </StyledButton>
+        </>
+      )}
       <Toggle src={logo2} onClick={() => props.toggle()} />
     </Wrapper>
   );
