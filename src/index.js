@@ -4,6 +4,7 @@ import ReactDom from 'react-dom'
 import './index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import Model from './models';
 
 // let root = createRoot(document.getElementById('root'))
 // root.render(
