@@ -1,14 +1,16 @@
-import React, { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import React, { useContext } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../logo.svg";
 import logo2 from "../logo2.svg";
 import { Button } from "antd";
+import context from "../stores/index";
+import { observer } from "mobx-react";
 
 const Wrapper = styled.header`
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   border-radius: 0 0 2rem 2rem;
   position: fixed;
   top: 0;
@@ -18,61 +20,65 @@ const Wrapper = styled.header`
 const Logo = styled.img`
   width: 4em;
   height: 2em;
-  margin-left: 10vw;
-  margin-right: auto;
 `;
 const TheNavLink = styled(NavLink)`
   text-decoration: none;
   color: inherit;
-  margin-left: 1em;
+  margin-right: 1em;
   &.active {
     border-bottom: 0.1em solid;
   }
 `;
-const Toggle = styled.img`
-  width: 4em;
-  height: 2em;
-  margin-left: auto;
-  margin-right: 10vw;
-`;
 const StyledButton = styled(Button)`
-  margin-left: 2em;
+  margin-left: 1em;
 `;
-function Component(props) {
-  const [isLogin, login] = useState(false);
+const Component = observer((props) => {
+  const { AuthStore, UserStore } = useContext(context);
+  let navigate = useNavigate();
+  const HandleLogout = () => {
+    AuthStore.logout();
+  };
+  const HandleLogin = () => {
+    navigate("/login");
+  };
+  const HandleRegister = () => {
+    navigate("/register");
+  };
   return (
     <Wrapper>
-      <Logo
-        src={logo}
-        alt="logo"
-        onClick={() => (window.location.href = "/")}
-      />
       <nav>
+        <Logo
+          src={logo}
+          alt="logo"
+          onClick={() => (window.location.href = "/")}
+        />
         <TheNavLink to="/">首页</TheNavLink>
         <TheNavLink to="upload">上传</TheNavLink>
         <TheNavLink to="history">历史</TheNavLink>
         <TheNavLink to="about">关于</TheNavLink>
       </nav>
-      {isLogin ? (
-        <>
-          fuming
-          <StyledButton type="dashed" onClick={() => login(false)}>
-            <Link to="logout">注销</Link>
-          </StyledButton>
-        </>
-      ) : (
-        <>
-          <StyledButton type="dashed" onClick={() => login(true)}>
-            <Link to="login">登录</Link>
-          </StyledButton>
-          <StyledButton type="dashed">
-            <Link to="register">注册</Link>
-          </StyledButton>
-        </>
-      )}
-      <Toggle src={logo2} onClick={() => props.toggle()} />
+      <div>
+        {UserStore.currentUser ? (
+          <>
+            {UserStore.currentUser.attributes.username}
+            <StyledButton type="dashed" onClick={HandleLogout}>
+              <Link to="logout">注销</Link>
+            </StyledButton>
+          </>
+        ) : (
+          <>
+            <StyledButton type="dashed" onClick={HandleLogin}>
+              <Link to="login">登录</Link>
+            </StyledButton>
+            <StyledButton type="dashed" onClick={HandleRegister}>
+              <Link to="register">注册</Link>
+            </StyledButton>
+          </>
+        )}
+        <Logo src={logo2} onClick={() => props.toggle()} />
+      </div>
     </Wrapper>
   );
-}
+});
 
 export default Component;
