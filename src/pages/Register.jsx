@@ -1,5 +1,8 @@
-import { Form, Input, Button, Checkbox } from "antd";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { Form, Input, Button } from "antd";
 import styled from "styled-components";
+import context from "../stores";
 
 const Title = styled.div`
   position: absolute;
@@ -14,8 +17,16 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 const Component = () => {
+  const { AuthStore } = useContext(context);
+  let navigate = useNavigate();
   const onFinish = (values) => {
+    AuthStore.setPassword(values.password);
+    AuthStore.setUsername(values.username);
+    AuthStore.register()
+      .then(() => console.log("注册成功,跳转首页"))
+      .catch((err) => console.log("注册失败", err));
     console.log("Success:", values);
+    navigate("/");
   };
 
   const onFinishFailed = (errorInfo) => {

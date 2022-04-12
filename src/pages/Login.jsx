@@ -1,9 +1,8 @@
-import React, { useContext, useRef } from "react";
-import { observer } from "mobx-react";
-import context from "../stores/index";
-import { Form, Input, Button, Checkbox } from "antd";
+import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { Form, Input, Button } from "antd";
 import styled from "styled-components";
-// const { AuthStore } = useContext(context);
+import context from "../stores";
 
 const Title = styled.div`
   position: absolute;
@@ -18,7 +17,17 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 const Component = () => {
+  const { AuthStore } = useContext(context);
+  let navigate = useNavigate();
   const onFinish = (values) => {
+    AuthStore.setPassword(values.password);
+    AuthStore.setUsername(values.username);
+    AuthStore.login()
+      .then(() => {
+        console.log("登录成功,跳转首页");
+      })
+      .catch((err) => console.log("登录失败", err));
+    navigate("/");
     console.log("Success:", values);
   };
 
