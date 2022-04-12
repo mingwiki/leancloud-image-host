@@ -26,5 +26,17 @@ const Auth = {
     return User.current()
   }
 }
-
-export { Auth }
+const Image = {
+  upload(name, file) {
+    return new Promise((resolve, reject) => {
+      const img = new AV.Object('Image');
+      var avFile = new AV.File(name, file);
+      img.set('name', name)
+      // img.set('file', file)
+      img.set('url', avFile)
+      img.set('owner', User.current())
+      img.save().then((img) => resolve(img), (error) => reject(error))
+    })
+  }
+}
+export { Auth, Image }
