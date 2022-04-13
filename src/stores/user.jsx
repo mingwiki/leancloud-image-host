@@ -1,5 +1,5 @@
 import { makeAutoObservable } from "mobx";
-import { Auth } from "../models";
+import { Auth } from "../models/index";
 
 class UserStore {
   currentUser = null;

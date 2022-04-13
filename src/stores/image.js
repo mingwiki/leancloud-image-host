@@ -1,5 +1,5 @@
 import { makeAutoObservable } from "mobx";
-import { Image } from "../models";
+import { Image } from "../models/index";
 
 class ImageStore {
   files = []

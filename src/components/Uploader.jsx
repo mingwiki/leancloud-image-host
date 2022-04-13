@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import context from "../stores";
+import context from "../stores/index";
 import { observer } from "mobx-react";
 import { Upload, Modal, message } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
@@ -68,7 +68,7 @@ const Component = observer(() => {
     );
   };
   let onRemove = (file) => {
-    setFilelist(fileList.filter((v) => v != file));
+    setFilelist(fileList.filter((v) => v !== file));
   };
 
   let customRequest = ({ file }) => {
@@ -130,13 +130,13 @@ const Component = observer(() => {
       >
         {uploadButton}
       </Upload>
-      {fileList.length == 0 ? null : (
+      {fileList.length === 0 ? null : (
         <>
           <UploadResultHeader>上传结果</UploadResultHeader>
           <UploadResult>
             {fileList.map((file) => (
               <UploadResultLine>
-                <a href={file.url} target="_blank">
+                <a href={file.url} target="_blank" rel="noreferrer">
                   {file.name}
                 </a>
                 <Copy
@@ -148,7 +148,7 @@ const Component = observer(() => {
                     }));
                   }}
                   className={
-                    copyText[file.uid] == "(链接已复制)" ? "active" : ""
+                    copyText[file.uid] === "(链接已复制)" ? "active" : ""
                   }
                 >
                   {copyText[file.uid]}

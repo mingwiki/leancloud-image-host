@@ -1,4 +1,4 @@
-import AV, { Query, User } from 'leancloud-storage';
+import AV, { User } from 'leancloud-storage';
 AV.init({
   appId: "Co2HYYsX3YsrSM8hLn35yMVq-gzGzoHsz",
   appKey: "vpslFNPbTpcTFj4XHIGHP9eH",

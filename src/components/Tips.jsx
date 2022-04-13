@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import context from "../stores";
+import context from "../stores/index";
 import { observer } from "mobx-react";
 import styled from "styled-components";
 

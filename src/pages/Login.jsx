@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form, Input, Button } from "antd";
 import styled from "styled-components";
-import context from "../stores";
+import context from "../stores/index";
 
 const Title = styled.div`
   position: absolute;
