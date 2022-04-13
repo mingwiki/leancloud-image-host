@@ -8,12 +8,13 @@ import styled from "styled-components";
 const Wrapper = styled.div`
   margin: 2em;
 `;
-const genUID = (() => {
-  let uid = 0;
-  return () => {
-    return uid++;
-  };
-})();
+const Copy = styled.button`
+  margin-left: 1em;
+  &:active {
+    background-color: red;
+  }
+`;
+
 function getBase64(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -29,6 +30,7 @@ const Component = observer(() => {
   const [previewImage, setPreviewImage] = useState("");
   const [previewTitle, setPreviewTitle] = useState("");
   const [fileList, setFilelist] = useState([]);
+  const [copyText, setCopyText] = useState({});
 
   let onCancel = () => setPreviewVisible(false);
   let onPreview = async (file) => {
@@ -57,7 +59,7 @@ const Component = observer(() => {
         setFilelist((fileList) => [
           ...fileList,
           {
-            uid: "-" + genUID(),
+            uid: file.uid,
             name: file.name,
             status: "done",
             url: img.attributes.url.attributes.url,
@@ -69,7 +71,7 @@ const Component = observer(() => {
         setFilelist((fileList) => [
           ...fileList,
           {
-            uid: "-" + genUID(),
+            uid: file.uid,
             name: file.name,
             status: "error",
           },
@@ -77,6 +79,13 @@ const Component = observer(() => {
         console.log("文件上传失败", err);
       }
     );
+
+    if (!copyText[file.uid]) {
+      setCopyText((copyText) => ({
+        ...copyText,
+        [file.uid]: "点击复制链接",
+      }));
+    }
   };
 
   const uploadButton = (
@@ -95,7 +104,6 @@ const Component = observer(() => {
         customRequest={customRequest}
         multiple={true}
       >
-        {/* {console.log("fileList", fileList)} */}
         {uploadButton}
       </Upload>
       {fileList.length == 0 ? null : <h2>上传结果</h2>}
@@ -104,7 +112,21 @@ const Component = observer(() => {
         : fileList.map((file) => (
             <>
               <div>
-                <a href={file.url}>{file.name}</a>
+                <a href={file.url} target="_blank">
+                  {file.name}
+                </a>
+                &nbsp;&nbsp;
+                <Copy
+                  onClick={() => {
+                    navigator.clipboard.writeText(file.url);
+                    setCopyText((copyText) => ({
+                      ...copyText,
+                      [file.uid]: "已复制",
+                    }));
+                  }}
+                >
+                  {copyText[file.uid]}
+                </Copy>
               </div>
             </>
           ))}
