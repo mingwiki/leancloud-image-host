@@ -3,11 +3,7 @@ import context from "../stores";
 import { observer } from "mobx-react";
 import { Upload, Modal } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-import styled from "styled-components";
 
-const Wrapper = styled.div`
-  height: 80%;
-`;
 const genUID = (() => {
   let uid = 0;
   return () => {
@@ -94,12 +90,15 @@ const Component = observer(() => {
         {/* {console.log("fileList", fileList)} */}
         {uploadButton}
       </Upload>
+      {fileList.length == 0 ? null : <h2>上传结果</h2>}
       {fileList.length == 0
         ? null
         : fileList.map((file) => (
-            <div>
-              <a href={file.url}>{file.name}</a>
-            </div>
+            <>
+              <div>
+                <a href={file.url}>{file.name}</a>
+              </div>
+            </>
           ))}
       <Modal
         visible={previewVisible}
