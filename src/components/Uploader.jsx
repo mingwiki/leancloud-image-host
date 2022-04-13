@@ -1,9 +1,13 @@
 import React, { useState, useContext } from "react";
 import context from "../stores";
 import { observer } from "mobx-react";
-import { Upload, Modal } from "antd";
+import { Upload, Modal, message } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
+import styled from "styled-components";
 
+const Wrapper = styled.div`
+  margin: 2em;
+`;
 const genUID = (() => {
   let uid = 0;
   return () => {
@@ -20,7 +24,7 @@ function getBase64(file) {
 }
 
 const Component = observer(() => {
-  const { ImageStore } = useContext(context);
+  const { ImageStore, UserStore } = useContext(context);
   const [previewVisible, setPreviewVisible] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
   const [previewTitle, setPreviewTitle] = useState("");
@@ -44,6 +48,10 @@ const Component = observer(() => {
   let customRequest = ({ file }) => {
     ImageStore.setFile(file);
     ImageStore.setName(file.name);
+    if (!UserStore.currentUser) {
+      message.error("请先登录再上传");
+      return;
+    }
     ImageStore.upload().then(
       (img) => {
         setFilelist((fileList) => [
@@ -78,7 +86,7 @@ const Component = observer(() => {
     </div>
   );
   return (
-    <>
+    <Wrapper>
       <Upload
         listType="picture-card"
         fileList={fileList}
@@ -108,7 +116,7 @@ const Component = observer(() => {
       >
         <img alt="example" style={{ width: "100%" }} src={previewImage} />
       </Modal>
-    </>
+    </Wrapper>
   );
 });
 
