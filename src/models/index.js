@@ -29,7 +29,7 @@ const Auth = {
 const Image = {
   upload(name, file) {
     return new Promise((resolve, reject) => {
-      const img = new AV.Object('Image');
+      const img = new AV.Object('Images');
       var avFile = new AV.File(name, file);
       img.set('name', name)
       // img.set('file', file)
