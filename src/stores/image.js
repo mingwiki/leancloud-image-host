@@ -5,7 +5,6 @@ class ImageStore {
   files = []
   names = []
   imgs = []
-  // uploadFileLists = []
   isUploading = false
 
   constructor() {
@@ -17,9 +16,6 @@ class ImageStore {
   setName(name) {
     this.names.push(name);
   }
-  // setUploadFileLists(file) {
-  //   this.uploadFileLists.push(file);
-  // }
   upload() {
     this.isUploading = true;
     // let promises = [];
