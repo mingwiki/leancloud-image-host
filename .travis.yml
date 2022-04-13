@@ -1,0 +1,24 @@
+language: node_js
+node_js: stable
+cache: npm
+branches:
+  only:
+    - master # build master branch only
+script:
+  - npm run build # generate static files
+deploy:
+  provider: pages
+  cleanup: false
+  keep-history: true
+  edge: true
+  github-token: $GH_TOKEN
+  on:
+    branch: master
+  local-dir: build
+  fqdn: imgurl.zed.ink
+notifications:
+  email:
+    recipients:
+      - mingwiki@gmail.com
+    on_success: change
+    on_failure: always
