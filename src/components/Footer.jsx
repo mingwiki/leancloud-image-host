@@ -19,8 +19,10 @@ const TheLink = styled(Link)`
 function Component() {
   return (
     <Wrapper>
-      <TheLink to="//github.com/mingwiki/image-host-demo">Image Host</TheLink>
-      &nbsp;&copy;&nbsp;2022
+      <TheLink to="//github.com/mingwiki/image-host-demo">
+        {document.title}
+      </TheLink>
+      &nbsp;&copy;&nbsp;{new Date().getUTCFullYear()}
     </Wrapper>
   );
 }

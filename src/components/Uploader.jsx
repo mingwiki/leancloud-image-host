@@ -8,10 +8,34 @@ import styled from "styled-components";
 const Wrapper = styled.div`
   margin: 2em;
 `;
+const UploadResultHeader = styled.div`
+  font-size: 1.5em;
+  margin: 2em;
+  padding: 0 2em;
+  text-align: center;
+  border: 1px solid;
+  border-radius: 10px;
+`;
+const UploadResult = styled.div`
+  border: 4px groove;
+  border-top: none;
+  border-radius: 1em;
+  padding: 1em 3em;
+`;
+const UploadResultLine = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin: 0.5em 0;
+  padding: 0 1em;
+`;
 const Copy = styled.button`
-  margin-left: 1em;
+  border-style: solid;
+  background: none;
+  &.active {
+    border-style: dashed;
+  }
   &:active {
-    background-color: red;
+    color: red;
   }
 `;
 
@@ -106,30 +130,34 @@ const Component = observer(() => {
       >
         {uploadButton}
       </Upload>
-      {fileList.length == 0 ? null : <h2>上传结果</h2>}
-      {fileList.length == 0
-        ? null
-        : fileList.map((file) => (
-            <>
-              <div>
+      {fileList.length == 0 ? null : (
+        <>
+          <UploadResultHeader>上传结果</UploadResultHeader>
+          <UploadResult>
+            {fileList.map((file) => (
+              <UploadResultLine>
                 <a href={file.url} target="_blank">
                   {file.name}
                 </a>
-                &nbsp;&nbsp;
                 <Copy
-                  onClick={() => {
+                  onClick={(e) => {
                     navigator.clipboard.writeText(file.url);
                     setCopyText((copyText) => ({
                       ...copyText,
-                      [file.uid]: "已复制",
+                      [file.uid]: "(链接已复制)",
                     }));
                   }}
+                  className={
+                    copyText[file.uid] == "(链接已复制)" ? "active" : ""
+                  }
                 >
                   {copyText[file.uid]}
                 </Copy>
-              </div>
-            </>
-          ))}
+              </UploadResultLine>
+            ))}
+          </UploadResult>
+        </>
+      )}
       <Modal
         visible={previewVisible}
         title={previewTitle}

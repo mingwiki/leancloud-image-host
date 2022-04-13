@@ -15,9 +15,10 @@ export const dark = {
 export const GlobalStyles = createGlobalStyle`
   main {
     flex: 1;
-    margin: 5rem 10vw;
+    margin: 5em 10vw 4em;
     border-radius: 1rem;
     box-shadow: inherit;
+    overflow: scroll;
   } 
   header, main, footer { 
     background-color: ${({ theme }) => theme.body};
