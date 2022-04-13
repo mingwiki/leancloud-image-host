@@ -1,34 +1,115 @@
-import React, { useContext, useRef } from "react";
+import React, { useState, useContext } from "react";
 import context from "../stores";
 import { observer } from "mobx-react";
+import { Upload, Modal } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
+import styled from "styled-components";
+
+const Wrapper = styled.div`
+  height: 80%;
+`;
+const genUID = (() => {
+  let uid = 0;
+  return () => {
+    return uid++;
+  };
+})();
+function getBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
+  });
+}
 
 const Component = observer(() => {
-  const InputRef = useRef();
   const { ImageStore } = useContext(context);
-  const bindChange = () => {
-    for (let i = 0; i < InputRef.current.files.length; i++) {
-      ImageStore.setFile(InputRef.current.files[i]);
-      ImageStore.setName(InputRef.current.files[i].name);
+  const [previewVisible, setPreviewVisible] = useState(false);
+  const [previewImage, setPreviewImage] = useState("");
+  const [previewTitle, setPreviewTitle] = useState("");
+  const [fileList, setFilelist] = useState([]);
+
+  let onCancel = () => setPreviewVisible(false);
+  let onPreview = async (file) => {
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj);
     }
+    setPreviewImage(file.url || file.preview);
+    setPreviewVisible(true);
+    setPreviewTitle(
+      file.name || file.url.substring(file.url.lastIndexOf("/") + 1)
+    );
+  };
+  let onRemove = (file) => {
+    setFilelist(fileList.filter((v) => v != file));
+  };
+
+  let customRequest = ({ file }) => {
+    ImageStore.setFile(file);
+    ImageStore.setName(file.name);
     ImageStore.upload().then(
-      () => {
-        console.log("上传成功");
+      (img) => {
+        setFilelist((fileList) => [
+          ...fileList,
+          {
+            uid: "-" + genUID(),
+            name: file.name,
+            status: "done",
+            url: img.attributes.url.attributes.url,
+          },
+        ]);
+        console.log("文件上传成功");
       },
       (err) => {
-        console.log("上传失败", err);
+        setFilelist((fileList) => [
+          ...fileList,
+          {
+            uid: "-" + genUID(),
+            name: file.name,
+            status: "error",
+          },
+        ]);
+        console.log("文件上传失败", err);
       }
     );
   };
-  return (
+
+  const uploadButton = (
     <div>
-      <h1>文件上传</h1>
-      <input
-        type="file"
-        multiple="multiple"
-        onChange={bindChange}
-        ref={InputRef}
-      />
+      <PlusOutlined />
+      <div style={{ marginTop: 8 }}>Upload</div>
     </div>
+  );
+  return (
+    <>
+      <Upload
+        listType="picture-card"
+        fileList={fileList}
+        onPreview={onPreview}
+        onRemove={onRemove}
+        customRequest={customRequest}
+        multiple={true}
+      >
+        {/* {console.log("fileList", fileList)} */}
+        {uploadButton}
+      </Upload>
+      {fileList.length == 0
+        ? null
+        : fileList.map((file) => (
+            <div>
+              <a href={file.url}>{file.name}</a>
+            </div>
+          ))}
+      <Modal
+        visible={previewVisible}
+        title={previewTitle}
+        footer={null}
+        onCancel={onCancel}
+      >
+        <img alt="example" style={{ width: "100%" }} src={previewImage} />
+      </Modal>
+    </>
   );
 });
 

@@ -6,7 +6,7 @@ const Component = observer(() => {
   const { UserStore } = useContext(context);
   return (
     <main>
-      <h1>
+      <h1 style={{textAlign: "center"}}>
         {UserStore.currentUser ? (
           <>欢迎登录， {UserStore.currentUser.attributes.username}</>
         ) : (
