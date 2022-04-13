@@ -3,7 +3,7 @@ node_js: stable
 cache: npm
 branches:
   only:
-    - master # build master branch only
+    - main # build master branch only
 script:
   - npm run build # generate static files
 deploy:
@@ -13,7 +13,7 @@ deploy:
   edge: true
   github-token: $GH_TOKEN
   on:
-    branch: master
+    branch: main
   local-dir: build
   fqdn: imgurl.zed.ink
 notifications:
