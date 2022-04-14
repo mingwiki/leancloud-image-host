@@ -54,7 +54,6 @@ const Component = observer(() => {
   const [previewImage, setPreviewImage] = useState("");
   const [previewTitle, setPreviewTitle] = useState("");
   const [fileList, setFilelist] = useState([]);
-  const [copyText, setCopyText] = useState({});
 
   let onCancel = () => setPreviewVisible(false);
   let onPreview = async (file) => {
@@ -71,6 +70,37 @@ const Component = observer(() => {
     setFilelist(fileList.filter((v) => v !== file));
   };
 
+  // let customRequest = async ({ file }) => {
+  //   ImageStore.setFile(file);
+  //   ImageStore.setName(file.name);
+  //   if (!UserStore.currentUser) {
+  //     message.error("请先登录再上传");
+  //     return;
+  //   }
+  //   try {
+  //     let img = await ImageStore.upload();
+  //     setFilelist((fileList) => [
+  //       ...fileList,
+  //       {
+  //         uid: file.uid,
+  //         name: file.name,
+  //         status: "done",
+  //         url: img.attributes.attachments[0].attributes.url,
+  //       },
+  //     ]);
+  //     console.log("文件上传成功");
+  //   } catch (err) {
+  //     setFilelist((fileList) => [
+  //       ...fileList,
+  //       {
+  //         uid: file.uid,
+  //         name: file.name,
+  //         status: "error",
+  //       },
+  //     ]);
+  //     console.log("文件上传失败", err);
+  //   }
+  // };
   let customRequest = ({ file }) => {
     ImageStore.setFile(file);
     ImageStore.setName(file.name);
@@ -86,7 +116,7 @@ const Component = observer(() => {
             uid: file.uid,
             name: file.name,
             status: "done",
-            url: img.attributes.url.attributes.url,
+            url: img.attributes.attachments[0].attributes.url,
           },
         ]);
         console.log("文件上传成功");
@@ -103,13 +133,6 @@ const Component = observer(() => {
         console.log("文件上传失败", err);
       }
     );
-
-    if (!copyText[file.uid]) {
-      setCopyText((copyText) => ({
-        ...copyText,
-        [file.uid]: "点击复制链接",
-      }));
-    }
   };
 
   const uploadButton = (
@@ -135,23 +158,23 @@ const Component = observer(() => {
           <UploadResultHeader>上传结果</UploadResultHeader>
           <UploadResult>
             {fileList.map((file) => (
-              <UploadResultLine>
+              <UploadResultLine key={file.uid}>
                 <a href={file.url} target="_blank" rel="noreferrer">
                   {file.name}
                 </a>
                 <Copy
                   onClick={(e) => {
-                    navigator.clipboard.writeText(file.url);
-                    setCopyText((copyText) => ({
-                      ...copyText,
-                      [file.uid]: "(链接已复制)",
-                    }));
+                    if (file.url) {
+                      navigator.clipboard.writeText(file.url);
+                      e.target.innerText = "(链接已复制)";
+                    } else {
+                      navigator.clipboard.writeText(file.name);
+                      e.target.innerText = "(文件名已复制)";
+                    }
+                    e.target.className += " active";
                   }}
-                  className={
-                    copyText[file.uid] === "(链接已复制)" ? "active" : ""
-                  }
                 >
-                  {copyText[file.uid]}
+                  {file.url ? "点击复制链接" : "上传失败，点击复制文件名"}
                 </Copy>
               </UploadResultLine>
             ))}

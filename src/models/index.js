@@ -29,13 +29,13 @@ const Auth = {
 const Image = {
   upload(name, file) {
     return new Promise((resolve, reject) => {
-      const img = new AV.Object('Images');
-      var avFile = new AV.File(name, file);
-      img.set('name', name)
-      // img.set('file', file)
-      img.set('url', avFile)
-      img.set('owner', User.current())
-      img.save().then((img) => resolve(img), (error) => reject(error))
+      const avFile = new AV.File(name, file);
+      const img = new AV.Object('images');
+      avFile.save({ keepFileName: false }).then((av) => {
+        img.add('attachments', av);
+        img.set('owner', User.current())
+        img.save().then((img) => resolve(img), (error) => reject(error))
+      }, (error) => reject(error));
     })
   }
 }
