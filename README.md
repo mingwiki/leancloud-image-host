@@ -30,10 +30,10 @@ $   npm run build
 
 Contact Me  ｜  联系我:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<mingwiki@gmail.com>
 
-## API  
+## API  |  接口
 
 <https://api.naizi.fun>
 
-## 云存储
+## Cloud Storage  |  云存储
 
 <https://cloud.naizi.fun>
