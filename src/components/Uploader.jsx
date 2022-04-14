@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import context from "../stores/index";
 import { observer } from "mobx-react";
-import { Upload, Modal, message } from "antd";
+import { Upload, Modal, message, Spin } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import styled from "styled-components";
 
@@ -24,9 +24,8 @@ const UploadResult = styled.div`
 `;
 const UploadResultLine = styled.div`
   display: flex;
-  justify-content: space-between;
-  margin: 0.5em 0;
-  padding: 0 1em;
+  justify-content: flex-end;
+  gap: 1em;
 `;
 const Copy = styled.button`
   border-style: solid;
@@ -97,6 +96,15 @@ const Component = observer(() => {
       message.error("请先登录再上传");
       return;
     }
+    if (!/^(image\/)/i.test(file.type)) {
+      message.error("请上传一张或多张任意类型图片");
+      return;
+    }
+    if (file.size > 10 * 1024 * 1024) {
+      message.error("请上传一张或多张任意类型图片");
+      return;
+    }
+    window.file = file;
     ImageStore.upload().then(
       (img) => {
         setFilelist((fileList) => [
@@ -106,9 +114,12 @@ const Component = observer(() => {
             name: file.name,
             status: "done",
             url: img.attributes.attachments[0].attributes.url,
+            width: "",
+            height: "",
+            fullurl: "",
           },
         ]);
-        console.log("文件上传成功");
+        message.success("文件上传成功");
       },
       (err) => {
         setFilelist((fileList) => [
@@ -119,11 +130,29 @@ const Component = observer(() => {
             status: "error",
           },
         ]);
+        message.error("文件上传失败");
         console.log("文件上传失败", err);
       }
     );
   };
-
+  let handleWidth = (e, file) => {
+    file.width = isNaN(e.target.value) ? "" : e.target.value;
+    file.fullurl =
+      file.url +
+      (file.width === "" && file.height === "" ? "" : `?/imageview2/0`) +
+      (file.width !== "" ? `/w/${file.width}` : "") +
+      (file.height !== "" ? `/h/${file.height}` : "");
+    setFilelist([...fileList]);
+  };
+  let handleHeight = (e, file) => {
+    file.height = isNaN(e.target.value) ? "" : e.target.value;
+    file.fullurl =
+      file.url +
+      (file.width === "" && file.height === "" ? "" : `?/imageview2/0`) +
+      (file.width !== "" ? `/w/${file.width}` : "") +
+      (file.height !== "" ? `/h/${file.height}` : "");
+    setFilelist([...fileList]);
+  };
   const uploadButton = (
     <div>
       <PlusOutlined />
@@ -132,59 +161,73 @@ const Component = observer(() => {
   );
   return (
     <Wrapper>
-      <Upload
-        listType="picture-card"
-        fileList={fileList}
-        onPreview={onPreview}
-        onRemove={onRemove}
-        customRequest={customRequest}
-        multiple={true}
-      >
-        {uploadButton}
-      </Upload>
-      {fileList.length === 0 ? null : (
-        <>
-          <UploadResultHeader>上传结果</UploadResultHeader>
-          <UploadResult>
-            {fileList.map((file) => (
-              <UploadResultLine key={file.uid}>
-                <a href={file.url} target="_blank" rel="noreferrer">
-                  {file.name}
-                </a>
-                <Copy
-                  onClick={(e) => {
-                    if (file.url) {
-                      navigator.clipboard.writeText(file.url);
-                      e.target.innerText = "(链接已复制)";
-                    } else {
-                      navigator.clipboard.writeText(file.name);
-                      e.target.innerText = "(文件名已复制)";
-                    }
-                    if (
-                      !e.target.className
-                        .toString()
-                        .split(" ")
-                        .includes("active")
-                    ) {
-                      e.target.className += " active";
-                    }
-                  }}
-                >
-                  {file.url ? "点击复制链接" : "上传失败，点击复制文件名"}
-                </Copy>
-              </UploadResultLine>
-            ))}
-          </UploadResult>
-        </>
-      )}
-      <Modal
-        visible={previewVisible}
-        title={previewTitle}
-        footer={null}
-        onCancel={onCancel}
-      >
-        <img alt="example" style={{ width: "100%" }} src={previewImage} />
-      </Modal>
+      <Spin spinning={ImageStore.isUploading} size="large" tip="图片正在上传中">
+        <Upload
+          listType="picture-card"
+          fileList={fileList}
+          onPreview={onPreview}
+          onRemove={onRemove}
+          customRequest={customRequest}
+          multiple={true}
+        >
+          {uploadButton}
+        </Upload>
+        {fileList.length === 0 ? null : (
+          <>
+            <UploadResultHeader>上传结果</UploadResultHeader>
+            <UploadResult>
+              {fileList.map((file) => (
+                <UploadResultLine key={file.uid}>
+                  <a
+                    href={file.fullurl || file.url}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {file.name}
+                  </a>
+                  <input
+                    onChange={(e) => handleWidth(e, file)}
+                    placeholder="设置宽度：默认"
+                  />
+                  <input
+                    onChange={(e) => handleHeight(e, file)}
+                    placeholder="设置长度：默认"
+                  />
+                  <Copy
+                    onClick={(e) => {
+                      if (file.url) {
+                        navigator.clipboard.writeText(file.fullurl || file.url);
+                        e.target.innerText = "(链接已复制)";
+                      } else {
+                        navigator.clipboard.writeText(file.name);
+                        e.target.innerText = "(名称已复制)";
+                      }
+                      if (
+                        !e.target.className
+                          .toString()
+                          .split(" ")
+                          .includes("active")
+                      ) {
+                        e.target.className += " active";
+                      }
+                    }}
+                  >
+                    {file.url ? "点击复制链接" : "点击复制名称"}
+                  </Copy>
+                </UploadResultLine>
+              ))}
+            </UploadResult>
+          </>
+        )}
+        <Modal
+          visible={previewVisible}
+          title={previewTitle}
+          footer={null}
+          onCancel={onCancel}
+        >
+          <img alt="example" style={{ width: "100%" }} src={previewImage} />
+        </Modal>
+      </Spin>
     </Wrapper>
   );
 });

@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button, message } from "antd";
 import styled from "styled-components";
 import context from "../stores/index";
 
@@ -8,7 +8,6 @@ const Title = styled.div`
   position: absolute;
   font-size: 2em;
   top: 5em;
-  /* border: 1px solid black; */
 `;
 const Wrapper = styled.div`
   height: 100%;
@@ -24,11 +23,13 @@ const Component = () => {
     AuthStore.setUsername(values.username);
     AuthStore.login()
       .then(() => {
-        console.log("登录成功,跳转首页");
+        message.success("登录成功,跳转首页");
       })
-      .catch((err) => console.log("登录失败", err));
+      .catch((err) => {
+        message.error("登录失败");
+        console.log("登录失败", err);
+      });
     navigate("/");
-    console.log("Success:", values);
   };
 
   const onFinishFailed = (errorInfo) => {

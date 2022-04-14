@@ -40,8 +40,9 @@ class ImageStore {
         }, (error) => {
           console.log(error)
           reject(error)
+        }).finally(() => {
+          this.isUploading = false;
         })
-      this.isUploading = false;
     })
   }
 }

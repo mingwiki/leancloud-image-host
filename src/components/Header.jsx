@@ -53,7 +53,6 @@ const Component = observer((props) => {
           onClick={() => (window.location.href = "/")}
         />
         <TheNavLink to="/">首页</TheNavLink>
-        <TheNavLink to="upload">上传</TheNavLink>
         <TheNavLink to="history">历史</TheNavLink>
         <TheNavLink to="about">关于</TheNavLink>
       </nav>
