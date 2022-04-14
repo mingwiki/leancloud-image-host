@@ -1,0 +1,1 @@
+{"version":3,"file":"static/js/175.822221c3.chunk.js","mappings":"iIAUA,UARA,WACE,OACE,2BACE","sources":["pages/About.jsx"],"sourcesContent":["import React from 'react'\n\nfunction Component() {\n  return (\n    <main>\n      <h1>Welcome About</h1>\n    </main>\n  )\n}\n\nexport default Component"],"names":[],"sourceRoot":""}

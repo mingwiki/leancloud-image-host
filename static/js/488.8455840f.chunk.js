@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkimgurl=self.webpackChunkimgurl||[]).push([[488],{8488:function(e,n,u){u.r(n);u(2791);var l=u(184);n.default=function(){return(0,l.jsx)("main",{children:(0,l.jsx)("h1",{children:"Welcome Upload"})})}}}]);
+//# sourceMappingURL=488.8455840f.chunk.js.map
