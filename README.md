@@ -10,22 +10,30 @@ URL  |  网址:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<https://imgurl.zed.ink/>
 
 ## Install  ｜  安装
 
-```js
+```bash
 $   npm i
 ```
 
 ## Run and Test  ｜  运行或测试
 
-```js
+```bash
 $   npm start
 ```
 
 ## Build  ｜  生产版本
 
-```js
+```bash
 $   npm run build
 ```
 
 ## Help  ｜  帮助
 
 Contact Me  ｜  联系我:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<mingwiki@gmail.com>
+
+## API  
+
+<https://api.naizi.fun>
+
+## 云存储
+
+<https://cloud.naizi.fun>
