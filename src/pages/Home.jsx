@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 // import context from "../stores/index.jsx";
 import { observer } from "mobx-react";
 import Uploader from "../components/Uploader";
