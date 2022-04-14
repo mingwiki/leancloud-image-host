@@ -4,6 +4,10 @@
 
 > 个人开源图床项目
 
+## Preview  |  预览
+
+URL  |  网址:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<https://imgurl.zed.ink/>
+
 ## Install  ｜  安装
 
 ```js
