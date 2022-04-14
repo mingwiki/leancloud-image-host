@@ -1,4 +1,4 @@
-import AV, { User } from 'leancloud-storage';
+import AV from 'leancloud-storage';
 AV.init({
   appId: "Co2HYYsX3YsrSM8hLn35yMVq-gzGzoHsz",
   appKey: "vpslFNPbTpcTFj4XHIGHP9eH",
@@ -7,7 +7,7 @@ AV.init({
 // console.log("AV init...")
 const Auth = {
   register(username, password) {
-    let user = new User()
+    let user = new AV.User()
     user.setUsername(username)
     user.setPassword(password)
     return new Promise((resolve, reject) => {
@@ -16,14 +16,14 @@ const Auth = {
   },
   login(username, password) {
     return new Promise((resolve, reject) => {
-      User.logIn(username, password).then((user) => resolve(user), (error) => reject(error));
+      AV.User.logIn(username, password).then((user) => resolve(user), (error) => reject(error));
     })
   },
   logout() {
-    User.logOut()
+    AV.User.logOut()
   },
   getCurrentUser() {
-    return User.current()
+    return AV.User.current()
   }
 }
 const Image = {
@@ -33,7 +33,7 @@ const Image = {
       const img = new AV.Object('images');
       avFile.save({ keepFileName: false }).then((av) => {
         img.add('attachments', av);
-        img.set('owner', User.current())
+        img.set('owner', AV.User.current())
         img.save().then((img) => resolve(img), (error) => reject(error))
       }, (error) => reject(error));
     })
