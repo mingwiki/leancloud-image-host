@@ -31,6 +31,7 @@ const UploadResultLine = styled.div`
 const Copy = styled.button`
   border-style: solid;
   background: none;
+  cursor: pointer;
   &.active {
     border-style: dashed;
   }
@@ -38,15 +39,6 @@ const Copy = styled.button`
     color: red;
   }
 `;
-
-function getBase64(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = (error) => reject(error);
-  });
-}
 
 const Component = observer(() => {
   const { ImageStore, UserStore } = useContext(context);
@@ -56,11 +48,8 @@ const Component = observer(() => {
   const [fileList, setFilelist] = useState([]);
 
   let onCancel = () => setPreviewVisible(false);
-  let onPreview = async (file) => {
-    if (!file.url && !file.preview) {
-      file.preview = await getBase64(file.originFileObj);
-    }
-    setPreviewImage(file.url || file.preview);
+  let onPreview = (file) => {
+    setPreviewImage(file.url);
     setPreviewVisible(true);
     setPreviewTitle(
       file.name || file.url.substring(file.url.lastIndexOf("/") + 1)
@@ -171,7 +160,14 @@ const Component = observer(() => {
                       navigator.clipboard.writeText(file.name);
                       e.target.innerText = "(文件名已复制)";
                     }
-                    e.target.className += " active";
+                    if (
+                      !e.target.className
+                        .toString()
+                        .split(" ")
+                        .includes("active")
+                    ) {
+                      e.target.className += " active";
+                    }
                   }}
                 >
                   {file.url ? "点击复制链接" : "上传失败，点击复制文件名"}
