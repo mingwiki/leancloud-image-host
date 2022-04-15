@@ -127,7 +127,7 @@ const Component = observer(() => {
   const uploadButton = (
     <div>
       <PlusOutlined />
-      <div style={{ marginTop: 8 }}>Upload</div>
+      <div style={{ marginTop: 8 }}>多文件上传</div>
     </div>
   );
   return (

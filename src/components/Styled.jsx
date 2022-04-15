@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { List } from "antd";
 import { Link, NavLink } from "react-router-dom";
 import { Button } from "antd";
 const Tips = styled.div`
@@ -96,6 +97,9 @@ const HeaderNavLink = styled(NavLink)`
 const StyledButton = styled(Button)`
   margin-left: 1em;
 `;
+const MadList = styled(List)`
+  flex: 1;
+`;
 export {
   Tips,
   RedTips,
@@ -112,4 +116,5 @@ export {
   Logo,
   HeaderNavLink,
   StyledButton,
+  MadList,
 };

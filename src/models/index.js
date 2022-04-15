@@ -4,7 +4,6 @@ AV.init({
   appKey: "vpslFNPbTpcTFj4XHIGHP9eH",
   serverURL: "https://api.naizi.fun"
 })
-// console.log("AV init...")
 const Auth = {
   register(username, password) {
     let user = new AV.User()
@@ -24,7 +23,7 @@ const Auth = {
   },
   getCurrentUser() {
     return AV.User.current()
-  }
+  },
 }
 const Image = {
   upload(name, file) {
@@ -33,9 +32,30 @@ const Image = {
       const img = new AV.Object('images');
       avFile.save({ keepFileName: false }).then((av) => {
         img.add('attachments', av);
+        img.set('name', av.attributes.name);
+        img.set('url', av.attributes.url);
         img.set('owner', AV.User.current())
         img.save().then((img) => resolve(img), (error) => reject(error))
       }, (error) => reject(error));
+    })
+  },
+  query({ page, limit }) {
+    let avQuery = new AV.Query('images')
+    avQuery.include('owner')
+    avQuery.equalTo('owner', AV.User.current())
+    avQuery.descending('createdAt');
+    avQuery.skip(page * limit)
+    avQuery.limit(limit)
+    return new Promise((resolve, reject) => {
+      avQuery.find().then(result => resolve(result), error => reject(error))
+    })
+  },
+  getTotal() {
+    let avQuery = new AV.Query('images')
+    avQuery.include('owner')
+    avQuery.equalTo('owner', AV.User.current())
+    return new Promise(resolve => {
+      avQuery.count().then(result => resolve(result))
     })
   }
 }

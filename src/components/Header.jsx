@@ -20,7 +20,7 @@ const Component = observer((props) => {
   };
   React.useEffect(() => {
     UserStore.getCurrentUser();
-  });
+  }, []);
   return (
     <HeaderWrapper>
       <nav>
