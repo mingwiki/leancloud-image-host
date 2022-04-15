@@ -1,5 +1,5 @@
 import React, { useState, Suspense } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import styled, { ThemeProvider } from "styled-components";
@@ -29,7 +29,7 @@ function App() {
     }
   };
   return (
-    <BrowserRouter>
+    <HashRouter>
       <ThemeProvider theme={theme.type}>
         <GlobalStyles />
         <Header toggle={toggleTheme} />
@@ -48,7 +48,7 @@ function App() {
         </Suspense>
         <Footer />
       </ThemeProvider>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
