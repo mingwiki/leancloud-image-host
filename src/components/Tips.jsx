@@ -17,7 +17,7 @@ const RedTips = styled.div`
 const Component = observer(({ children }) => {
   const { UserStore } = useContext(context);
   return UserStore.currentUser ? (
-    <Tips>欢迎回来， {UserStore.currentUser.attributes.username}</Tips>
+    <Tips>欢迎回来, {UserStore.currentUser.attributes.username}</Tips>
   ) : (
     <RedTips>请先登录再上传, {children}</RedTips>
   );

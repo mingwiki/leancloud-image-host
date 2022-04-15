@@ -8,7 +8,6 @@ const Title = styled.div`
   position: absolute;
   font-size: 2em;
   top: 5em;
-  /* border: 1px solid black; */
 `;
 const Wrapper = styled.div`
   height: 100%;
@@ -25,10 +24,8 @@ const Component = () => {
     AuthStore.register()
       .then(() => console.log("注册成功,跳转首页"))
       .catch((err) => console.log("注册失败", err));
-    console.log("Success:", values);
     navigate("/");
   };
-
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };

@@ -24,7 +24,7 @@ const UploadResult = styled.div`
 `;
 const UploadResultLine = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   gap: 1em;
 `;
 const Copy = styled.button`
@@ -100,11 +100,10 @@ const Component = observer(() => {
       message.error("请上传一张或多张任意类型图片");
       return;
     }
-    if (file.size > 10 * 1024 * 1024) {
-      message.error("请上传一张或多张任意类型图片");
+    if (file.size > 100 * 1024 * 1024) {
+      message.error("单张图片体积应小于100M");
       return;
     }
-    window.file = file;
     ImageStore.upload().then(
       (img) => {
         setFilelist((fileList) => [

@@ -24,8 +24,8 @@ class AuthStore {
           resolve(user);
         })
         .catch((error) => {
+          UserStore.resetCurrentUser();
           reject(error);
-          console.log(`登录失败：${error}`);
         });
     });
   }

@@ -44,6 +44,9 @@ const Component = observer((props) => {
   const HandleRegister = () => {
     navigate("/register");
   };
+  React.useEffect(() => {
+    UserStore.getCurrentUser();
+  });
   return (
     <Wrapper>
       <nav>
@@ -61,7 +64,7 @@ const Component = observer((props) => {
           <>
             {UserStore.currentUser.attributes.username}
             <StyledButton type="dashed" onClick={HandleLogout}>
-              <Link to="logout">注销</Link>
+              <Link to="/">注销</Link>
             </StyledButton>
           </>
         ) : (
