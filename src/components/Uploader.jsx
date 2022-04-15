@@ -3,41 +3,13 @@ import context from "../stores/index";
 import { observer } from "mobx-react";
 import { Upload, Modal, message, Spin } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-import styled from "styled-components";
-
-const Wrapper = styled.div`
-  margin: 2em;
-`;
-const UploadResultHeader = styled.div`
-  font-size: 1.5em;
-  margin: 2em;
-  padding: 0 2em;
-  text-align: center;
-  border: 1px solid;
-  border-radius: 10px;
-`;
-const UploadResult = styled.div`
-  border: 4px groove;
-  border-top: none;
-  border-radius: 1em;
-  padding: 1em 3em;
-`;
-const UploadResultLine = styled.div`
-  display: flex;
-  justify-content: center;
-  gap: 1em;
-`;
-const Copy = styled.button`
-  border-style: solid;
-  background: none;
-  cursor: pointer;
-  &.active {
-    border-style: dashed;
-  }
-  &:active {
-    color: red;
-  }
-`;
+import {
+  UploaderWrapper,
+  UploadResultHeader,
+  UploadResult,
+  UploadResultLine,
+  Copy,
+} from "./Styled";
 
 const Component = observer(() => {
   const { ImageStore, UserStore } = useContext(context);
@@ -159,7 +131,7 @@ const Component = observer(() => {
     </div>
   );
   return (
-    <Wrapper>
+    <UploaderWrapper>
       <Spin spinning={ImageStore.isUploading} size="large" tip="图片正在上传中">
         <Upload
           listType="picture-card"
@@ -227,7 +199,7 @@ const Component = observer(() => {
           <img alt="example" style={{ width: "100%" }} src={previewImage} />
         </Modal>
       </Spin>
-    </Wrapper>
+    </UploaderWrapper>
   );
 });
 

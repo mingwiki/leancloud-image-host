@@ -1,37 +1,11 @@
 import React, { useContext } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
-import styled from "styled-components";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../logo.svg";
 import logo2 from "../logo2.svg";
-import { Button } from "antd";
 import context from "../stores/index";
 import { observer } from "mobx-react";
+import { HeaderWrapper, Logo, HeaderNavLink, StyledButton } from "./Styled";
 
-const Wrapper = styled.header`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-radius: 0 0 2rem 2rem;
-  position: fixed;
-  top: 0;
-  left: 5vw;
-  right: 5vw;
-`;
-const Logo = styled.img`
-  width: 4em;
-  height: 2em;
-`;
-const TheNavLink = styled(NavLink)`
-  text-decoration: none;
-  color: inherit;
-  margin-right: 1em;
-  &.active {
-    border-bottom: 0.1em solid;
-  }
-`;
-const StyledButton = styled(Button)`
-  margin-left: 1em;
-`;
 const Component = observer((props) => {
   const { AuthStore, UserStore } = useContext(context);
   let navigate = useNavigate();
@@ -48,16 +22,16 @@ const Component = observer((props) => {
     UserStore.getCurrentUser();
   });
   return (
-    <Wrapper>
+    <HeaderWrapper>
       <nav>
         <Logo
           src={logo}
           alt="logo"
           onClick={() => (window.location.href = "/")}
         />
-        <TheNavLink to="/">首页</TheNavLink>
-        <TheNavLink to="history">历史</TheNavLink>
-        <TheNavLink to="about">关于</TheNavLink>
+        <HeaderNavLink to="/">首页</HeaderNavLink>
+        <HeaderNavLink to="history">历史</HeaderNavLink>
+        <HeaderNavLink to="about">关于</HeaderNavLink>
       </nav>
       <div>
         {UserStore.currentUser ? (
@@ -79,7 +53,7 @@ const Component = observer((props) => {
         )}
         <Logo src={logo2} onClick={() => props.toggle()} />
       </div>
-    </Wrapper>
+    </HeaderWrapper>
   );
 });
 

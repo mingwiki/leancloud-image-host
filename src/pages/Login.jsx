@@ -1,20 +1,9 @@
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form, Input, Button, message } from "antd";
-import styled from "styled-components";
 import context from "../stores/index";
+import { AbsoluteTips, FlexWrapper } from "../components/Styled";
 
-const Title = styled.div`
-  position: absolute;
-  font-size: 2em;
-  top: 5em;
-`;
-const Wrapper = styled.div`
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
 const Component = () => {
   const { AuthStore } = useContext(context);
   let navigate = useNavigate();
@@ -38,8 +27,8 @@ const Component = () => {
 
   return (
     <main>
-      <Wrapper>
-        <Title>登录页面</Title>
+      <FlexWrapper>
+        <AbsoluteTips>登录页面</AbsoluteTips>
         <Form
           name="basic"
           labelCol={{
@@ -90,7 +79,7 @@ const Component = () => {
             </Button>
           </Form.Item>
         </Form>
-      </Wrapper>
+      </FlexWrapper>
     </main>
   );
 };
