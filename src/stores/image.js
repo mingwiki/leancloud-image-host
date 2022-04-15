@@ -44,5 +44,11 @@ class ImageStore {
         })
     })
   }
+  resetImageStore() {
+    this.files = []
+    this.names = []
+    this.imgs = []
+    this.isUploading = false
+  }
 }
 export default new ImageStore();
