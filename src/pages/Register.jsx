@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button, message } from "antd";
 import context from "../stores/index";
 import { AbsoluteTips, FlexWrapper } from "../components/Styled";
 
@@ -11,8 +11,11 @@ const Component = () => {
     AuthStore.setPassword(values.password);
     AuthStore.setUsername(values.username);
     AuthStore.register()
-      .then(() => console.log("注册成功,跳转首页"))
-      .catch((err) => console.log("注册失败", err));
+      .then(() => message.success("注册成功,跳转首页"))
+      .catch((err) => {
+        message.error("注册失败,请重试");
+        console.log("注册失败", err);
+      });
     navigate("/");
   };
   const onFinishFailed = (errorInfo) => {

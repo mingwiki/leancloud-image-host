@@ -1,8 +1,9 @@
 import { makeAutoObservable } from "mobx";
-import { Auth } from "../models/index";
+import { Auth, Image } from "../models/index";
 
 class UserStore {
   currentUser = null;
+  imgNumber = 0;
   constructor() {
     makeAutoObservable(this);
   }
@@ -11,6 +12,9 @@ class UserStore {
   }
   resetCurrentUser() {
     this.currentUser = null;
+  }
+  getTotal() {
+    Image.getTotal().then((res) => (this.imgNumber = res));
   }
 }
 

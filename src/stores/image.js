@@ -38,7 +38,6 @@ class ImageStore {
           this.imgs.push(img);
           resolve(img)
         }, (error) => {
-          console.log(error)
           reject(error)
         }).finally(() => {
           this.isUploading = false;
