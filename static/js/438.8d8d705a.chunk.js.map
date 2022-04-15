@@ -1,1 +1,0 @@
-{"version":3,"file":"static/js/438.8d8d705a.chunk.js","mappings":"iIAUA,UARA,WACE,OACE,2BACE","sources":["pages/History.jsx"],"sourcesContent":["import React from 'react'\n\nfunction Component() {\n  return (\n    <main>\n      <h1>Welcome History</h1>\n    </main>\n  )\n}\n\nexport default Component"],"names":[],"sourceRoot":""}
