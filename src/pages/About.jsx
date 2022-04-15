@@ -4,7 +4,7 @@ import context from "../stores";
 import { observer } from "mobx-react";
 const Component = observer(() => {
   const { UserStore } = React.useContext(context);
-  React.useEffect(() => UserStore.getTotal(), []);
+  React.useEffect(() => UserStore.getTotal());
   return (
     <main>
       <Tips>关于此账户</Tips>
