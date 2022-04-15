@@ -1,6 +1,8 @@
 import { makeAutoObservable } from "mobx";
 import { Auth } from "../models/index";
 import UserStore from "./user";
+import HistoryStore from "./history";
+import ImageStore from "./image";
 
 class AuthStore {
   values = {
@@ -25,6 +27,8 @@ class AuthStore {
         })
         .catch((error) => {
           UserStore.resetCurrentUser();
+          HistoryStore.resetHistory();
+          ImageStore.resetImageStore();
           reject(error);
         });
     });
@@ -38,12 +42,20 @@ class AuthStore {
         })
         .catch((error) => {
           UserStore.resetCurrentUser();
+          HistoryStore.resetHistory();
+          ImageStore.resetImageStore();
           reject(error);
         });
     });
   }
   logout() {
     UserStore.resetCurrentUser();
+    HistoryStore.resetHistory();
+    ImageStore.resetImageStore();
+    this.values = {
+      username: "",
+      password: "",
+    };
     Auth.logout();
   }
 }

@@ -34,5 +34,10 @@ class HistoryStore {
         this.setIsUploading(false);
       });
   }
+  resetHistory() {
+    this.list = [];
+    this.isUploading = false;
+    this.maxPage = 2;
+  }
 }
 export default new HistoryStore();
