@@ -81,6 +81,8 @@ const HeaderWrapper = styled.header`
   top: 0;
   left: 5vw;
   right: 5vw;
+  overflow: scroll;
+  min-width: 400px;
 `
 const Logo = styled.img`
   width: 4em;

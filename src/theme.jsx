@@ -27,7 +27,7 @@ export const GlobalStyles = createGlobalStyle`
     transition: all 0.25s linear;
   }
   header{
-    font-size: 1.5rem;
+    font-size: 15px;
   }
   a{
     padding: 0;
