@@ -1,33 +1,33 @@
-import React, { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import logo from "../logo.svg";
-import logo2 from "../logo2.svg";
-import context from "../stores/index";
-import { observer } from "mobx-react";
-import { HeaderWrapper, Logo, HeaderNavLink, StyledButton } from "./Styled";
+import React, { useContext } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import logo from '../logo.svg'
+import logo2 from '../logo2.svg'
+import context from '../stores/index'
+import { observer } from 'mobx-react'
+import { HeaderWrapper, Logo, HeaderNavLink, StyledButton } from './Styled'
 
 const Component = observer((props) => {
-  const { AuthStore, UserStore } = useContext(context);
-  let navigate = useNavigate();
+  const { AuthStore, UserStore } = useContext(context)
+  let navigate = useNavigate()
   const HandleLogout = () => {
-    AuthStore.logout();
-  };
+    AuthStore.logout()
+  }
   const HandleLogin = () => {
-    navigate("/login");
-  };
+    navigate('/login')
+  }
   const HandleRegister = () => {
-    navigate("/register");
-  };
+    navigate('/register')
+  }
   React.useEffect(() => {
-    UserStore.getCurrentUser();
-  });
+    UserStore.getCurrentUser()
+  })
   return (
     <HeaderWrapper>
       <nav>
         <Logo
           src={logo}
           alt="logo"
-          onClick={() => (window.location.href = "/")}
+          onClick={() => (window.location.href = '/')}
         />
         <HeaderNavLink to="/">首页</HeaderNavLink>
         <HeaderNavLink to="history">历史</HeaderNavLink>
@@ -54,7 +54,7 @@ const Component = observer((props) => {
         <Logo src={logo2} onClick={() => props.toggle()} />
       </div>
     </HeaderWrapper>
-  );
-});
+  )
+})
 
-export default Component;
+export default Component

@@ -1,21 +1,21 @@
-import { makeAutoObservable } from "mobx";
-import { Auth, Image } from "../models/index";
+import { makeAutoObservable } from 'mobx'
+import { Auth, Image } from '../models/index'
 
 class UserStore {
-  currentUser = null;
-  imgNumber = 0;
+  currentUser = null
+  imgNumber = 0
   constructor() {
-    makeAutoObservable(this);
+    makeAutoObservable(this)
   }
   getCurrentUser() {
-    this.currentUser = Auth.getCurrentUser();
+    this.currentUser = Auth.getCurrentUser()
   }
   resetCurrentUser() {
-    this.currentUser = null;
+    this.currentUser = null
   }
   getTotal() {
-    Image.getTotal().then((res) => (this.imgNumber = res));
+    Image.getTotal().then((res) => (this.imgNumber = res))
   }
 }
 
-export default new UserStore();
+export default new UserStore()

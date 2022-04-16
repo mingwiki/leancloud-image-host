@@ -1,5 +1,5 @@
-import React from "react";
-import { FooterWrapper, FooterLink } from "./Styled";
+import React from 'react'
+import { FooterWrapper, FooterLink } from './Styled'
 
 function Component() {
   return (
@@ -9,7 +9,7 @@ function Component() {
       </FooterLink>
       &nbsp;&copy;&nbsp;{new Date().getUTCFullYear()}
     </FooterWrapper>
-  );
+  )
 }
 
-export default Component;
+export default Component

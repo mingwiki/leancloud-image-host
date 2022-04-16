@@ -1,12 +1,12 @@
-import { observer } from "mobx-react";
-import React, { useContext } from "react";
-import context from "../stores/index";
-import { List, Avatar } from "antd";
-import logo2 from "../logo2.svg";
-import { MadList } from "./Styled";
+import { observer } from 'mobx-react'
+import React, { useContext } from 'react'
+import context from '../stores/index'
+import { List, Avatar } from 'antd'
+import logo2 from '../logo2.svg'
+import { MadList } from './Styled'
 
 const Component = observer(() => {
-  const { HistoryStore, UserStore } = useContext(context);
+  const { HistoryStore, UserStore } = useContext(context)
   // const IconText = ({ icon, text }) => (
   //   <Space>
   //     {React.createElement(icon)}
@@ -26,8 +26,8 @@ const Component = observer(() => {
         pagination={{
           onChange: (page) => {
             if (page === HistoryStore.maxPage) {
-              HistoryStore.query({ page: page, limit: 3 });
-              HistoryStore.setMaxPage();
+              HistoryStore.query({ page: page, limit: 3 })
+              HistoryStore.setMaxPage()
             }
           },
           pageSize: 3,
@@ -78,12 +78,12 @@ const Component = observer(() => {
               title={<a href={item.attributes.url}>{item.attributes.name}</a>}
               description={item.attributes.url}
             />
-            上传日期：{item.createdAt.toLocaleString("zh-CN")}
+            上传日期：{item.createdAt.toLocaleString('zh-CN')}
           </List.Item>
         )}
       />
     </>
-  );
-});
+  )
+})
 
-export default Component;
+export default Component

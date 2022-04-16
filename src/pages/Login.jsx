@@ -1,29 +1,29 @@
-import React, { useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { Form, Input, Button, message } from "antd";
-import context from "../stores/index";
-import { AbsoluteTips, FlexWrapper } from "../components/Styled";
+import React, { useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { Form, Input, Button, message } from 'antd'
+import context from '../stores/index'
+import { AbsoluteTips, FlexWrapper } from '../components/Styled'
 
 const Component = () => {
-  const { AuthStore } = useContext(context);
-  let navigate = useNavigate();
+  const { AuthStore } = useContext(context)
+  let navigate = useNavigate()
   const onFinish = (values) => {
-    AuthStore.setPassword(values.password);
-    AuthStore.setUsername(values.username);
+    AuthStore.setPassword(values.password)
+    AuthStore.setUsername(values.username)
     AuthStore.login()
       .then(() => {
-        message.success("登录成功,跳转首页");
+        message.success('登录成功,跳转首页')
       })
       .catch((err) => {
-        message.error("登录失败");
-        console.log("登录失败", err);
-      });
-    navigate("/");
-  };
+        message.error('登录失败')
+        console.log('登录失败', err)
+      })
+    navigate('/')
+  }
 
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
+    console.log('Failed:', errorInfo)
+  }
 
   return (
     <main>
@@ -50,7 +50,7 @@ const Component = () => {
             rules={[
               {
                 required: true,
-                message: "Please input your username!",
+                message: 'Please input your username!',
               },
             ]}
           >
@@ -62,7 +62,7 @@ const Component = () => {
             rules={[
               {
                 required: true,
-                message: "Please input your password!",
+                message: 'Please input your password!',
               },
             ]}
           >
@@ -81,7 +81,7 @@ const Component = () => {
         </Form>
       </FlexWrapper>
     </main>
-  );
-};
+  )
+}
 
-export default Component;
+export default Component

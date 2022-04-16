@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
-import { observer } from "mobx-react";
-import Uploader from "../components/Uploader";
-import context from "../stores/index";
-import { Tips, RedTips } from "../components/Styled";
+import React, { useContext } from 'react'
+import { observer } from 'mobx-react'
+import Uploader from '../components/Uploader'
+import context from '../stores/index'
+import { Tips, RedTips } from '../components/Styled'
 const Component = observer(() => {
-  const { UserStore } = useContext(context);
+  const { UserStore } = useContext(context)
   return (
     <main>
       {UserStore.currentUser ? (
@@ -14,7 +14,7 @@ const Component = observer(() => {
       )}
       <Uploader />
     </main>
-  );
-});
+  )
+})
 
-export default Component;
+export default Component

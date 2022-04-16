@@ -1,5 +1,5 @@
-import { makeAutoObservable } from "mobx";
-import { Image } from "../models/index";
+import { makeAutoObservable } from 'mobx'
+import { Image } from '../models/index'
 
 class ImageStore {
   files = []
@@ -8,16 +8,16 @@ class ImageStore {
   isUploading = false
 
   constructor() {
-    makeAutoObservable(this);
+    makeAutoObservable(this)
   }
   setFile(file) {
-    this.files.push(file);
+    this.files.push(file)
   }
   setName(name) {
-    this.names.push(name);
+    this.names.push(name)
   }
   upload() {
-    this.isUploading = true;
+    this.isUploading = true
     // let promises = [];
     // for (let i = 0; i < this.files.length; i++) {
     //   promises.push(Image.upload(this.names[i], this.files[i]));
@@ -35,12 +35,12 @@ class ImageStore {
     return new Promise((resolve, reject) => {
       Image.upload(this.names[this.names.length - 1], this.files[this.files.length - 1])
         .then((img) => {
-          this.imgs.push(img);
+          this.imgs.push(img)
           resolve(img)
         }, (error) => {
           reject(error)
         }).finally(() => {
-          this.isUploading = false;
+          this.isUploading = false
         })
     })
   }
@@ -51,4 +51,4 @@ class ImageStore {
     this.isUploading = false
   }
 }
-export default new ImageStore();
+export default new ImageStore()

@@ -1,26 +1,26 @@
-import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { Form, Input, Button, message } from "antd";
-import context from "../stores/index";
-import { AbsoluteTips, FlexWrapper } from "../components/Styled";
+import React, { useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { Form, Input, Button, message } from 'antd'
+import context from '../stores/index'
+import { AbsoluteTips, FlexWrapper } from '../components/Styled'
 
 const Component = () => {
-  const { AuthStore } = useContext(context);
-  let navigate = useNavigate();
+  const { AuthStore } = useContext(context)
+  let navigate = useNavigate()
   const onFinish = (values) => {
-    AuthStore.setPassword(values.password);
-    AuthStore.setUsername(values.username);
+    AuthStore.setPassword(values.password)
+    AuthStore.setUsername(values.username)
     AuthStore.register()
-      .then(() => message.success("注册成功,跳转首页"))
+      .then(() => message.success('注册成功,跳转首页'))
       .catch((err) => {
-        message.error("注册失败,请重试");
-        console.log("注册失败", err);
-      });
-    navigate("/");
-  };
+        message.error('注册失败,请重试')
+        console.log('注册失败', err)
+      })
+    navigate('/')
+  }
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
+    console.log('Failed:', errorInfo)
+  }
 
   return (
     <main>
@@ -47,7 +47,7 @@ const Component = () => {
             rules={[
               {
                 required: true,
-                message: "Please input your username!",
+                message: 'Please input your username!',
               },
             ]}
           >
@@ -60,7 +60,7 @@ const Component = () => {
             rules={[
               {
                 required: true,
-                message: "Please input your password!",
+                message: 'Please input your password!',
               },
             ]}
           >
@@ -69,22 +69,22 @@ const Component = () => {
           <Form.Item
             label="输入密码"
             name="re-password"
-            dependencies={["password"]}
+            dependencies={['password']}
             rules={[
               {
                 required: true,
-                message: "在输入一次密码",
+                message: '在输入一次密码',
               },
               ({ getFieldValue }) => ({
                 validator(_, value) {
-                  if (!value || getFieldValue("password") === value) {
-                    return Promise.resolve();
+                  if (!value || getFieldValue('password') === value) {
+                    return Promise.resolve()
                   }
                   return Promise.reject(
                     new Error(
-                      "The two passwords that you entered do not match!"
+                      'The two passwords that you entered do not match!'
                     )
-                  );
+                  )
                 },
               }),
             ]}
@@ -104,7 +104,7 @@ const Component = () => {
         </Form>
       </FlexWrapper>
     </main>
-  );
-};
+  )
+}
 
-export default Component;
+export default Component
