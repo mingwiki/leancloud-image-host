@@ -61,11 +61,11 @@ const Copy = styled.button`
 const FooterWrapper = styled.footer`
   border-radius: 2rem 2rem 0 0;
   text-align: center;
-  padding: 0.2rem 0;
+  /* padding: 0.2rem 0;
   position: fixed;
   bottom: 0;
   left: 5vw;
-  right: 5vw;
+  right: 5vw; */
 `
 const FooterLink = styled(Link)`
   color: inherit;
@@ -77,12 +77,11 @@ const HeaderWrapper = styled.header`
   align-items: center;
   justify-content: space-between;
   border-radius: 0 0 2rem 2rem;
-  position: fixed;
+  /* position: fixed;
   top: 0;
   left: 5vw;
-  right: 5vw;
+  right: 5vw; */
   overflow: scroll;
-  min-width: 400px;
 `
 const Logo = styled.img`
   width: 4em;

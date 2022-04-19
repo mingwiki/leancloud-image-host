@@ -5,6 +5,7 @@ import logo2 from '../logo2.svg'
 import context from '../stores/index'
 import { observer } from 'mobx-react'
 import { HeaderWrapper, Logo, HeaderNavLink, StyledButton } from './Styled'
+import { Button } from 'antd'
 
 const Component = observer((props) => {
   const { AuthStore, UserStore } = useContext(context)
@@ -43,9 +44,9 @@ const Component = observer((props) => {
           </>
         ) : (
           <>
-            <StyledButton type="dashed" onClick={HandleLogin}>
+            <Button type="dashed" onClick={HandleLogin}>
               <Link to="login">登录</Link>
-            </StyledButton>
+            </Button>
             <StyledButton type="dashed" onClick={HandleRegister}>
               <Link to="register">注册</Link>
             </StyledButton>

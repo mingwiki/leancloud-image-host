@@ -15,7 +15,7 @@ export const dark = {
 export const GlobalStyles = createGlobalStyle`
   main {
     flex: 1;
-    margin: 5em 10vw 4em;
+    /* margin: 5em 10vw 4em; */
     border-radius: 1rem;
     box-shadow: inherit;
     overflow: scroll;
@@ -25,6 +25,8 @@ export const GlobalStyles = createGlobalStyle`
     color: ${({ theme }) => theme.text};
     box-shadow: ${({ theme }) => theme.boxshadow};
     transition: all 0.25s linear;
+    min-width: 400px;
+    width: 80vw;
   }
   header{
     font-size: 15px;
