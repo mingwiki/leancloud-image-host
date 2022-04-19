@@ -29,7 +29,7 @@ const Image = {
   upload(name, file) {
     return new Promise((resolve, reject) => {
       const avFile = new AV.File(name, file)
-      const img = new AV.Object('images')
+      const img = new AV.Object('imgurl')
       avFile.save({ keepFileName: false }).then((av) => {
         img.add('attachments', av)
         img.set('name', av.attributes.name)
@@ -40,7 +40,7 @@ const Image = {
     })
   },
   query({ page, limit }) {
-    let avQuery = new AV.Query('images')
+    let avQuery = new AV.Query('imgurl')
     avQuery.include('owner')
     avQuery.equalTo('owner', AV.User.current())
     avQuery.descending('createdAt')
@@ -51,7 +51,7 @@ const Image = {
     })
   },
   getTotal() {
-    let avQuery = new AV.Query('images')
+    let avQuery = new AV.Query('imgurl')
     avQuery.include('owner')
     avQuery.equalTo('owner', AV.User.current())
     return new Promise(resolve => {
