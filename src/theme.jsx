@@ -25,7 +25,7 @@ export const GlobalStyles = createGlobalStyle`
     color: ${({ theme }) => theme.text};
     box-shadow: ${({ theme }) => theme.boxshadow};
     transition: all 0.25s linear;
-    min-width: 400px;
+    /* min-width: 400px; */
     width: 80vw;
   }
   header{

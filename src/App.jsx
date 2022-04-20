@@ -33,19 +33,21 @@ function App() {
       <ThemeProvider theme={theme.type}>
         <GlobalStyles />
         <Header toggle={toggleTheme} />
-        <Suspense
-          fallback={
-            <CenterSpin spinning={true} size="large" tip="页面正在加载中" />
-          }
-        >
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="history" element={<History />} />
-            <Route path="about" element={<About />} />
-            <Route path="login" element={<Login />} />
-            <Route path="register" element={<Register />} />
-          </Routes>
-        </Suspense>
+        <main>
+          <Suspense
+            fallback={
+              <CenterSpin spinning={true} size="large" tip="页面正在加载中" />
+            }
+          >
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="history" element={<History />} />
+              <Route path="about" element={<About />} />
+              <Route path="login" element={<Login />} />
+              <Route path="register" element={<Register />} />
+            </Routes>
+          </Suspense>
+        </main>
         <Footer />
       </ThemeProvider>
     </BrowserRouter>

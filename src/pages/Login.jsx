@@ -26,7 +26,7 @@ const Component = () => {
   }
 
   return (
-    <main>
+    <>
       <FlexWrapper>
         <AbsoluteTips>登录页面</AbsoluteTips>
         <Form
@@ -80,7 +80,7 @@ const Component = () => {
           </Form.Item>
         </Form>
       </FlexWrapper>
-    </main>
+    </>
   )
 }
 

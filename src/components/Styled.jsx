@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { List } from 'antd'
 import { Link, NavLink } from 'react-router-dom'
-import { Button } from 'antd'
+// import { Button } from 'antd'
 const Tips = styled.div`
   padding: 1em 2em;
   font-size: 1.2rem;
@@ -14,15 +14,16 @@ const RedTips = styled.div`
   text-align: center;
 `
 const AbsoluteTips = styled.div`
-  position: absolute;
+  /* position: absolute; */
   font-size: 2em;
-  top: 5em;
+  margin-top: 5em;
 `
 const FlexWrapper = styled.div`
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 `
 const UploaderWrapper = styled.div`
   margin: 2em;
@@ -84,20 +85,28 @@ const HeaderWrapper = styled.header`
   overflow: scroll;
 `
 const Logo = styled.img`
-  width: 4em;
-  height: 2em;
+  width: 2em;
+  /* height: 2em; */
+`
+const HeaderNav = styled.nav`
+  display: flex;
+  gap:10px;
 `
 const HeaderNavLink = styled(NavLink)`
   text-decoration: none;
   color: inherit;
-  margin-right: 1em;
+  /* margin-right: 1em; */
   &.active {
     border-bottom: 0.1em solid;
   }
 `
-const StyledButton = styled(Button)`
-  margin-left: 1em;
+const FlexButton = styled.div`
+  display: flex;
+  gap:10px;
 `
+// const StyledButton = styled(Button)`
+//   margin-left: 1em;
+// `
 const MadList = styled(List)`
   flex: 1;
 `
@@ -115,7 +124,9 @@ export {
   FooterLink,
   HeaderWrapper,
   Logo,
+  HeaderNav,
   HeaderNavLink,
-  StyledButton,
+  FlexButton,
+  // StyledButton,
   MadList,
 }

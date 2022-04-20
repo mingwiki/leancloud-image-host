@@ -6,14 +6,14 @@ import { Tips, RedTips } from '../components/Styled'
 const Component = observer(() => {
   const { UserStore } = useContext(context)
   return (
-    <main>
+    <>
       {UserStore.currentUser ? (
         <Tips>欢迎回来, {UserStore.currentUser.attributes.username}</Tips>
       ) : (
         <RedTips>请先登录再上传</RedTips>
       )}
       <Uploader />
-    </main>
+    </>
   )
 })
 

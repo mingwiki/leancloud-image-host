@@ -6,7 +6,7 @@ const Component = observer(() => {
   const { UserStore } = React.useContext(context)
   React.useEffect(() => UserStore.getTotal())
   return (
-    <main>
+    <>
       <Tips>关于此账户</Tips>
       {UserStore.currentUser ? (
         <ul>
@@ -17,7 +17,7 @@ const Component = observer(() => {
           <li>已上传图片：{UserStore.imgNumber} 张</li>
         </ul>
       ) : null}
-    </main>
+    </>
   )
 })
 
